@@ -35,3 +35,16 @@
   left: 90%;
   margin-left: 30px;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+::-webkit-scrollbar-track {
+    background-color: #cbd5f0;
+}
+  
+::-webkit-scrollbar-thumb {
+    background-color: #8da8f1;
+    border-radius: 5px;
+}

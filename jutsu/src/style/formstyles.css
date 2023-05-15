@@ -7,7 +7,7 @@
 
 .top{
     height: 100%;
-    background-color: #f0c8f6;
+    background-color: #070933;
     justify-content: left;
 }
 
@@ -15,12 +15,11 @@ li{
     list-style: none;
 }
 
-a{
+Link{
     text-decoration: none;
-    color: #ad3030;
 }
 
-a:hover{
+Link:hover{
     color: aqua; /*Change when add more links into the page*/
 }
 /*CONTENT*/
@@ -34,13 +33,13 @@ a:hover{
 
 /*===================================THIS IS FORM==================*/
 
-.container1{
-
+.container{
     width: 60%;
     background-color: #fff7f7;
     padding: 25px;
-    border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    border-radius: 20px;
+    box-shadow: 3px 3px 15px rgb(236, 222, 222);
+    border-left: 5px solid grey;
 }
 
 .type-title{

@@ -1,42 +1,55 @@
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.css';
-import { NavLink } from 'react-router-dom';
-const Navbar = () => {
-  
-  return (
-    <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <p className="brand">SenpaiSays</p>
-  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-  aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
-  </button>
+import React, { useState, useEffect } from "react";
+import '../style/main.css'
+import { Link, useNavigate } from 'react-router-dom';
 
-  <div className="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul className="navbar-nav mx-auto">
-      <li className="nav-item active">
-        <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/movies">Movies</NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/songs">Songs</NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/books">Books</NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/myprofile">My Profile</NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/login"><button className="text">Get Started</button></NavLink></li>
-      </ul>
-     
-  </div>
-</nav>
-    </>
-  )
+function Navbar() {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    navigate('/login');
+  }
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function toggleMenu() {
+    setMenuOpen(!menuOpen);
+  }
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth > 768) {
+        setMenuOpen(false);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <nav className='n_head'>
+      <div className='n_navbar'>
+        <div className="n_logo"><Link to="/"><i className="ri-links-line"></i><span></span>SenpaiSays</Link></div>
+        <ul className='n_links'>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/movies" >Movies</Link></li>
+          <li><Link to="/songs" >Songs</Link></li>
+          <li><Link to="/books" >Books</Link></li>
+          <li><Link to="/myprofile">My Profile</Link></li>
+        </ul>
+        <button onClick={handleLogout} className='n_action-btn'>Get Started</button>
+        <div className="n_toggle_btn" onClick={toggleMenu}>
+          <i className='bx bx-list-ul'></i>
+        </div>
+      </div>
+      <div className="n_dropdown_menu open" style={{ display: menuOpen ? "block" : "none" }}>
+          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/movies'>Movies</Link></li>
+          <li><Link to='/songs'>Songs</Link></li>
+          <li><Link to='/books'>Books</Link></li>
+          <li><Link to='/myprofile'>My Profile</Link></li>
+          <li><button onClick={handleLogout} className='n_action-btn'>Get Started</button></li>
+      </div>
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;

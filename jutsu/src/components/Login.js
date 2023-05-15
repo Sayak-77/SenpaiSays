@@ -1,11 +1,20 @@
 import React, { useState } from 'react'
 import '../style/loginstyles.css';
+import { ToastContainer, toast, useToast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-	
+
 const [user, setUser] = useState({
 	name: "",email: "", password: ""
 });
+const [auth,setAuth] = useState({
+	lemail:"", lpass:""
+});
+
+const [userEmail, setUserEmail] = useState('');
+const use= useNavigate();
 let name, value;
 const handleInputs = (e) =>{
 	name=e.target.name;
@@ -13,8 +22,9 @@ const handleInputs = (e) =>{
 
 	setUser({... user, [name]:value});
 }
- const handleSubmit = async (e) =>{
+const handleSubmit = async (e) =>{
 	e.preventDefault();
+	setUser({name:'',email:'',password:''});
 	const response = await fetch('http://localhost:8080/register',{
 		method: 'POST',
 		body:JSON.stringify(user),
@@ -22,25 +32,71 @@ const handleInputs = (e) =>{
 			'Content-Type':'application/json'
 		}
 	})
-	const data = await response.json();
-	console.log(data);
+	if(response.ok){
+		const data = await response.text();
+		toast.success(data,{
+			position:toast.POSITION.TOP_CENTER
+		});
+    }
+	else if(response.status==400){
+		const data = await response.text();
+		toast.warning(data,{
+			position:toast.POSITION.TOP_CENTER
+		});
+	}
+	else{
+		const data = await response.text();
+		toast.error(data,{
+			position:toast.POSITION.TOP_CENTER
+		});
+	}
  }
 
- const getusers = async () =>{
-	const response = await fetch('http://localhost:8080/register',{
-		method: 'GET',
+const proceedLogin = async (e) =>{
+	e.preventDefault();
+	// setUser({name:'',email:'',password:''});
+	const response = await fetch('http://localhost:8080/auth',{
+		method: 'POST',
+		body:JSON.stringify(auth),
+		headers:{
+			'Content-Type':'application/json'
+		}
 	})
-	const data = await response.json();
-	console.log(data);
+	if(response.ok){
+		const data = await response.text();
+		localStorage.setItem('help',JSON.stringify({email: auth.lemail}));
+		toast.success(data,{
+				position:toast.POSITION.TOP_CENTER
+	});
+	setTimeout(()=>{
+		use('/myprofile');
+	},2500);
+    }
+	else if(response.status==400){
+		const data = await response.text();
+		toast.error(data,{
+			position:toast.POSITION.TOP_CENTER
+		});
+	}
+	else{
+		const data = await response.text();
+		toast.error(data,{
+			position:toast.POSITION.TOP_CENTER
+		});
+	}
  }
+ let lname,lvalue;
+ const handleLogin = (e) =>{
+	lname=e.target.name;
+	lvalue=e.target.value;
 
-useState(()=>{
-	getusers();
-},[])
+	setAuth({... auth, [lname]:lvalue});
+}
 
   return (
     <div className="big">
-    <div className="container" id="container">
+		<ToastContainer/>
+    <div className="container1" id="container">
 	<div className="form-container sign-up-container">
 		<form className="fo1" action="#" onSubmit={handleSubmit}>
 			<h1 className="h1">Create Account</h1>
@@ -50,14 +106,14 @@ useState(()=>{
 				<a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
 			</div>
 			<span className="sp">or use your email for registration</span>
-			<input name="name" id="name" autoComplete="off" pattern="[^0-9]*" title="Name cannot contain numerics" type="text" placeholder="Name" value={user.name} onChange={handleInputs} required/>
-			<input name="email" id="email" autoComplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Lowercase Required with 2 letters after ." type="email" placeholder="Email" value={user.email} onChange={handleInputs} required/>
-			<input  name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Required a length of 8 and atleast One Lowercase, One Uppercase, One number." id="password" autoComplete="off"type="password" placeholder="Password" value={user.password} onChange={handleInputs} required/>
-			<button className="page">Sign Up</button>
+			<input className='inp1' name="name" id="name" autoComplete="off" pattern="[^0-9]*" title="Name cannot contain numerics" type="text" placeholder="Name" value={user.name} onChange={handleInputs} required/>
+			<input className='inp1' name="email" id="email" autoComplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Lowercase Required with 2 letters after ." type="email" placeholder="Email" value={user.email} onChange={handleInputs} required/>
+			<input className='inp1'  name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Requires a length of 8 and atleast One Lowercase, One Uppercase & One number." id="password" autoComplete="off" type="password" placeholder="Password" value={user.password} onChange={handleInputs} required/>
+			<button className="page" style={{marginTop:16}}>Sign Up</button>
 		</form>
 	</div>
 	<div className="form-container sign-in-container">
-		<form className="fo1" action="#">
+		<form className="fo1" action="#" onSubmit={proceedLogin}>
 			<h1 className="h1">Sign in</h1>
 			<div className="social-container">
 				<a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
@@ -65,8 +121,8 @@ useState(()=>{
 				<a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
 			</div>
 			<span className="sp">or use your account</span>
-			<input id="in1" type="email" placeholder="Email" />
-			<input id="in1" type="password" placeholder="Password" />
+			<input className='inp1' name="lemail" autoComplete="off" value={auth.lemail} onChange={handleLogin} type="email" placeholder="Email" required/>
+			<input className='inp1' name="lpass" value={auth.lpass} onChange={handleLogin} type="password" placeholder="Password" required/>
 			<a id="done" href="#"><u>Forgot your password</u> ?</a>
 			<button className="page" style={{marginTop:16}}>Sign In</button>
 		</form>
