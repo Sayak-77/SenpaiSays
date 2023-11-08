@@ -63,7 +63,7 @@ def suggest():
     input_data = request.get_json()
     print(input_data)
     
-    time.sleep(30)
+    time.sleep(300)
     # the_movies = recommendations(input_data)
 
     # print(the_movies)

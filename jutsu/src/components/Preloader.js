@@ -5,9 +5,9 @@ const Preloader = () => {
   return (
     <>
     <div className="preloader-container">
-      <div className="preloader"></div>
+    <span class="loader"></span>
     </div>
-    <div className="um"><h1>Please Wait till your Suggestions are Ready!!</h1></div>
+    <div className="pretext"><h1>Please Wait till your Suggestions are Ready!!</h1></div>
     </>
   );
 };

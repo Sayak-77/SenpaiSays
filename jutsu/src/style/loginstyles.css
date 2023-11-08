@@ -163,7 +163,6 @@ h2 {
 }
 
 .overlay {
-	background: #FF416C;
 	background: -webkit-linear-gradient(to right, #0a0d3d,#070933 );
 	background: linear-gradient(to right, #0a0d3d, #070933);
 	background-repeat: no-repeat;
