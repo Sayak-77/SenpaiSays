@@ -1,25 +1,26 @@
 import React, { useState, useEffect }from 'react'
 import '../style/songs.css'
+import song from '../data/songs.json';
 
 const Songs = () => {
 
     const help=JSON.parse(localStorage.getItem('help'));
     const [form, setForm] = useState(null);
-    const [songData, setSongData] = useState({});
+    const [songData, setSongData] = useState(song);
 
-    useEffect(() => {
-        fetch('http://localhost:8000/songsapi/song_data')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            setSongData(data);
-          })
-          .catch(error => console.log(error));
-    }, []);
+    // useEffect(() => {
+    //     fetch('http://localhost:8000/songsapi/song_data')
+    //       .then(response => {
+    //         if (!response.ok) {
+    //           throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //       })
+    //       .then(data => {
+    //         setSongData(data);
+    //       })
+    //       .catch(error => console.log(error));
+    // }, []);
 
     const getform = async () =>{
         const response = await fetch('http://localhost:8080/form/'+help.email,{

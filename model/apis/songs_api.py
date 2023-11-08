@@ -96,92 +96,92 @@ def book_recommendations(book_name):
 def song_data():
     input_data1 = request.get_json()
     print(input_data1)
-    track = song_recommendations(input_data1)
-    print(track)
+    # track = song_recommendations(input_data1)
+    # print(track)
 
-    jsondata = []
-    i = 0
-    c = 0
-    while len(jsondata) <= 20:
-        if c == 1:
-            i = i + 1
-            c = 0
-        querystring = {"q":track[i][0],"type":"tracks","offset":"0","limit":"1","numberOfTopResults":"1"}
-        print("Check 1")
-        response = requests.get(url, headers=headers, params=querystring)
-        result = response.json()
+    # jsondata = []
+    # i = 0
+    # c = 0
+    # while len(jsondata) <= 20:
+    #     if c == 1:
+    #         i = i + 1
+    #         c = 0
+    #     querystring = {"q":track[i][0],"type":"tracks","offset":"0","limit":"1","numberOfTopResults":"1"}
+    #     print("Check 1")
+    #     response = requests.get(url, headers=headers, params=querystring)
+    #     result = response.json()
 
-        if not result: # check if result is empty
-            c = 1
-            continue # move to the next iteration if empty
+    #     if not result: # check if result is empty
+    #         c = 1
+    #         continue # move to the next iteration if empty
         
-        print("Check  2")
-        try:
-            response.raise_for_status() # Check if the response is successful
-        except requests.exceptions.HTTPError as error:
-            print(f"The request returned an error: {error}")
-            c = 1
-            continue # move to the next iteration if error occurs
+    #     print("Check  2")
+    #     try:
+    #         response.raise_for_status() # Check if the response is successful
+    #     except requests.exceptions.HTTPError as error:
+    #         print(f"The request returned an error: {error}")
+    #         c = 1
+    #         continue # move to the next iteration if error occurs
         
-        try:
-            the_result = response.json()
-        except json.decoder.JSONDecodeError as error:
-            print(f"There was an error decoding the JSON: {error}")
-            c = 1
-            continue # move to the next iteration if error occurs
-        print("Check 3")
-        try:
-            song_name = result["tracks"]["items"][0]["data"]["name"]
-        except KeyError:
-            image = "N/A"
-        try:
-            album_name = result["tracks"]["items"][0]["data"]["albumOfTrack"]["name"]
-        except KeyError:
-            name = "N/A"
-        try:
-            artist_name = result["tracks"]["items"][0]["data"]["artists"]["items"][0]["profile"]["name"]
-        except KeyError:
-            year = "N/A"
+    #     try:
+    #         the_result = response.json()
+    #     except json.decoder.JSONDecodeError as error:
+    #         print(f"There was an error decoding the JSON: {error}")
+    #         c = 1
+    #         continue # move to the next iteration if error occurs
+    #     print("Check 3")
+    #     try:
+    #         song_name = result["tracks"]["items"][0]["data"]["name"]
+    #     except KeyError:
+    #         image = "N/A"
+    #     try:
+    #         album_name = result["tracks"]["items"][0]["data"]["albumOfTrack"]["name"]
+    #     except KeyError:
+    #         name = "N/A"
+    #     try:
+    #         artist_name = result["tracks"]["items"][0]["data"]["artists"]["items"][0]["profile"]["name"]
+    #     except KeyError:
+    #         year = "N/A"
         
-        if track[i][1] =="":
-            track[i][1] = "Hip Hop"
+    #     if track[i][1] =="":
+    #         track[i][1] = "Hip Hop"
 
 
-        song_meta = {
-            "title": song_name,
-            "artist": artist_name,
-            "album": album_name,
-            "genere": track[i][1].capitalize(),
-        }
+    #     song_meta = {
+    #         "title": song_name,
+    #         "artist": artist_name,
+    #         "album": album_name,
+    #         "genere": track[i][1].capitalize(),
+    #     }
 
-        jsondata.append(song_meta)
-        i = i + 1
+    #     jsondata.append(song_meta)
+    #     i = i + 1
 
 
-    # Specify the path of the directory
-    directory_path = "D:\\React.JS\\model\\data\\data"
-    print("reached_directory")
+    # # Specify the path of the directory
+    # directory_path = "D:\\React.JS\\model\\data\\data"
+    # print("reached_directory")
 
-    # Check if the directory exists, if not create it
-    if not os.path.exists(directory_path):
-        os.makedirs(directory_path)
+    # # Check if the directory exists, if not create it
+    # if not os.path.exists(directory_path):
+    #     os.makedirs(directory_path)
 
-    # Create the file inside the directory
-    filename = "first_song.json"
-    filepath = os.path.join(directory_path, filename)
-    print(filepath)
+    # # Create the file inside the directory
+    # filename = "first_song.json"
+    # filepath = os.path.join(directory_path, filename)
+    # print(filepath)
 
-    try:
-        with open(filepath, 'w') as f:
-            movie_information = {"top_song_suggestions": jsondata}
-            print("Inside json")
-            json.dump(movie_information, f)
-            return "File Created Successfully"
-    except Exception as e:
-        print("Error creating file:", e)
-        return "Error creating file"
+    # try:
+    #     with open(filepath, 'w') as f:
+    #         movie_information = {"top_song_suggestions": jsondata}
+    #         print("Inside json")
+    #         json.dump(movie_information, f)
+    #         return "File Created Successfully"
+    # except Exception as e:
+    #     print("Error creating file:", e)
+    #     return "Error creating file"
 
-    print("Waah Waah")
+    # print("Waah Waah")
     return "Ok"
 
 #================================== SONG SUGGESTIONS READ ========================================
@@ -196,69 +196,69 @@ def song_data1():
 def book_data():
     input_data2 = request.get_json()
     print(input_data2)
-    result1 = book_recommendations(input_data2)
-    print(result1)
-    book_json_data = []
-    i = 0
-    c = 0
+    # result1 = book_recommendations(input_data2)
+    # print(result1)
+    # book_json_data = []
+    # i = 0
+    # c = 0
     
-    while len(book_json_data) <= 16:
-        if c==1:
-            i = i + 1
-            c = 0
-        print("check 0")
-        bn = result1[i]
-        print(bn)
-        a = "+".join(bn.lower().split())
-        print(a)
-        url = "https://hapi-books.p.rapidapi.com/search/"+a
-        response = requests.get(url, headers=headers1)
-        result = response.json()
+    # while len(book_json_data) <= 16:
+    #     if c==1:
+    #         i = i + 1
+    #         c = 0
+    #     print("check 0")
+    #     bn = result1[i]
+    #     print(bn)
+    #     a = "+".join(bn.lower().split())
+    #     print(a)
+    #     url = "https://hapi-books.p.rapidapi.com/search/"+a
+    #     response = requests.get(url, headers=headers1)
+    #     result = response.json()
 
-        if not result: # check if result is empty
-            c = 1
-            continue # move to the next iteration if empty
-        print("check 3")
-        book_name = result[0]["name"]
-        book_rating=result[0]["rating"]
-        book_year=result[0]["year"]
-        book_author=result[0]["authors"][0]
+    #     if not result: # check if result is empty
+    #         c = 1
+    #         continue # move to the next iteration if empty
+    #     print("check 3")
+    #     book_name = result[0]["name"]
+    #     book_rating=result[0]["rating"]
+    #     book_year=result[0]["year"]
+    #     book_author=result[0]["authors"][0]
 
-        book_meta = {
-            "title": book_name,
-            "author":book_author,
-            "description": book_year,
-            "rating":book_rating
-        }
+    #     book_meta = {
+    #         "title": book_name,
+    #         "author":book_author,
+    #         "description": book_year,
+    #         "rating":book_rating
+    #     }
 
-        book_json_data.append(book_meta)
-        i = i + 1
+    #     book_json_data.append(book_meta)
+    #     i = i + 1
     
-    print("META DATA")
-    print(book_json_data)
+    # print("META DATA")
+    # print(book_json_data)
 
-    # Specify the path of the directory
-    directory_path = "D:\\React.JS\\model\\data"
-    print("reached_directory")
+    # # Specify the path of the directory
+    # directory_path = "D:\\React.JS\\model\\data"
+    # print("reached_directory")
 
-    # Check if the directory exists, if not create it
-    if not os.path.exists(directory_path):
-        os.makedirs(directory_path)
+    # # Check if the directory exists, if not create it
+    # if not os.path.exists(directory_path):
+    #     os.makedirs(directory_path)
 
-    # Create the file inside the directory
-    filename = "books.json"
-    filepath = os.path.join(directory_path, filename)
-    print(filepath)
+    # # Create the file inside the directory
+    # filename = "books.json"
+    # filepath = os.path.join(directory_path, filename)
+    # print(filepath)
 
-    try:
-        with open(filepath, 'w') as f:
-            movie_information = {"top_suggestions": book_json_data}
-            print("Inside json")
-            json.dump(movie_information, f)
-            return "File Created Successfully"
-    except Exception as e:
-        print("Error creating file:", e)
-        return "Error creating file"
+    # try:
+    #     with open(filepath, 'w') as f:
+    #         movie_information = {"top_suggestions": book_json_data}
+    #         print("Inside json")
+    #         json.dump(movie_information, f)
+    #         return "File Created Successfully"
+    # except Exception as e:
+    #     print("Error creating file:", e)
+    #     return "Error creating file"
     return "Ok"
 
 

@@ -1,24 +1,25 @@
 import React, { useState, useEffect }from 'react'
 import '../style/books.css'
+import book from '../data/books.json';
 
 const Books = () => {
 
     const help=JSON.parse(localStorage.getItem('help'));
-    const [bookData, setBookData] = useState({});
+    const [bookData, setBookData] = useState(book);
     const [form, setForm] = useState(null);
-    useEffect(() => {
-        fetch('http://localhost:8000/songsapi/book_data')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            setBookData(data);
-          })
-          .catch(error => console.log(error));
-      }, []);
+    // useEffect(() => {
+    //     fetch('http://localhost:8000/songsapi/book_data')
+    //       .then(response => {
+    //         if (!response.ok) {
+    //           throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //       })
+    //       .then(data => {
+    //         setBookData(data);
+    //       })
+    //       .catch(error => console.log(error));
+    //   }, []);
 
       const getform = async () =>{
         const response = await fetch('http://localhost:8080/form/'+help.email,{
@@ -161,7 +162,7 @@ const Books = () => {
         </div>
 
         <div className="welcomesenpai">
-            Senapi says try these
+            Senpai says try these
         </div>
         <div className="movierecommendation">
             <div className="book_info">

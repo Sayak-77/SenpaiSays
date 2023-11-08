@@ -1,24 +1,24 @@
 import React, { useState, useEffect }from 'react'
 import '../style/movies.css'
-import movie from '../data/movie_suggestions.json';
+import movie from '../data/temp.json';
 
 const Movies = () => {
 
-    const [movieData, setMovieData] = useState({});
+    const [movieData, setMovieData] = useState(movie);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/movie_data')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            setMovieData(data);
-          })
-          .catch(error => console.log(error));
-      }, []);
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/movie_data')
+    //       .then(response => {
+    //         if (!response.ok) {
+    //           throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //       })
+    //       .then(data => {
+    //         setMovieData(data);
+    //       })
+    //       .catch(error => console.log(error));
+    //   }, []);
 
   return (
     <div>
@@ -192,7 +192,7 @@ const Movies = () => {
                 <div className="m_movie_year">{movieData.top_suggestions?.[14]?.genere}</div>
                 <div className="m_movie_description">{movieData.top_suggestions?.[14]?.description}</div>
             </div>
-            <div className="m_movie_info">
+            {/* <div className="m_movie_info">
                 <img src={movieData.top_suggestions?.[15]?.image} className="m_movie_img"/>
                 <div className="m_movie_name">{movieData.top_suggestions?.[15]?.title}</div>
                 <div className="m_rat">
@@ -202,7 +202,7 @@ const Movies = () => {
                 <div className="m_movie_year">{movieData.top_suggestions?.[15]?.year}</div>
                 <div className="m_movie_year">{movieData.top_suggestions?.[15]?.genere}</div>
                 <div className="m_movie_description">{movieData.top_suggestions?.[15]?.description}</div>
-            </div>
+            </div> */}
         </div>
         </div>
 
