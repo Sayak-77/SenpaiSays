@@ -1,5 +1,5 @@
 ## SenpaiSays <br>
-<h2> React-App based Recommendation System</h2> <br>
+<h2>Real-time Recommendation System utilizing MERN STACK</h2> <br>
 <p> $MOVIES    $SONGS </p>
 
 <h2>FRONT_END</h2>
