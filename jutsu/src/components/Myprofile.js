@@ -1,8 +1,8 @@
-import React, { useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import '../style/profile.css'
 import '../components/Login.js'
-import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast, useToast } from 'react-toastify';
+import { Link} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Myprofile = () => {

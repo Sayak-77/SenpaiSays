@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../style/formstyles.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast, useToast } from 'react-toastify';
+import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Preloader from './Preloader';
 
@@ -66,13 +66,13 @@ const Form = () => {
                 },
                 body: JSON.stringify(inputArray1)
               }),
-              fetch(`http://localhost:8000/songsapi/songdata`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(inputArray2)
-              })
+            //   fetch(`http://localhost:8000/songsapi/songdata`, {
+            //     method: 'POST',
+            //     headers: {
+            //       'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(inputArray2)
+            //   })
             ]);
             setIsLoading(false);
             use('/movies');
@@ -132,8 +132,8 @@ const Form = () => {
                                     <label htmlFor="html">Horror</label>
                                 </div>
                                 <div className="new-option">
-                                    <input type="radio" id="html" name="movie_genere" value="Sci-Fi" onChange={handleInputs}/>
-                                    <label htmlFor="html">Sci-Fi</label>
+                                    <input type="radio" id="html" name="movie_genere" value="Fantasy" onChange={handleInputs}/>
+                                    <label htmlFor="html">Fantasy</label>
                                 </div>
                             </div>
                             <div className="type-title">
