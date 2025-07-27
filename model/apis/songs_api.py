@@ -28,7 +28,7 @@ def song_recommendations(song_name):
     the_song_list = []
 
     for l in range(4):
-        songs_data=pd.read_csv('D:\\React.JS\\model\\csvs\\songs_normalize.csv')
+        songs_data=pd.read_csv('D:\\SenpaiSays\\model\\csvs\\songs_normalize.csv')
         selected_features = ['genre','popularity','danceability','artist']
         for feature in selected_features:  
             songs_data[feature] = songs_data[feature].fillna('')
@@ -62,7 +62,7 @@ def book_recommendations(book_name):
     the_book_list = []
 
     for l in range(3):
-        books_data=pd.read_csv('D:\\React.JS\\model\\csvs\\books_final.csv')
+        books_data=pd.read_csv('D:\\SenpaiSays\\model\\csvs\\books_final.csv')
         selected_features = ['authors','average_rating','ratings_count','publisher']
 
         for feature in selected_features:
@@ -187,7 +187,7 @@ def song_data():
 #================================== SONG SUGGESTIONS READ ========================================
 @app.route('/songsapi/song_data')
 def song_data1():
-    with open('D:\\React.JS\\model\\data\\first_song.json', 'r') as f:
+    with open('D:\\SenpaiSays\\model\\data\\first_song.json', 'r') as f:
         data = json.load(f)
     return jsonify(data)
 
@@ -265,7 +265,7 @@ def book_data():
 #================================== BOOK SUGGESTIONS INTO JSON FILE ========================================
 @app.route('/songsapi/book_data')
 def book_data1():
-    with open('D:\\React.JS\\model\\data\\books.json', 'r') as f:
+    with open('D:\\SenpaiSays\\model\\data\\books.json', 'r') as f:
         data = json.load(f)
     return jsonify(data)
 
